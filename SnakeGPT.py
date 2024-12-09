@@ -1,4 +1,5 @@
 from rich import print
+import os
 head = "O"
 
 board = [
@@ -29,8 +30,10 @@ board = [
 
 global xhist
 global yhist
+global runs
 xhist = []
 yhist = []
+runs = 0
 
 # x coordinates begin at 1 and end at 20 (0 is a wall, 21 is a wall)
 hx = 10
@@ -40,7 +43,9 @@ hy = 10
 def draw_board():
     for row in board:
         print("".join(row))
-
+        if runs == 0:
+            os.system("clear")
+            
 def spawn_head():
     board[hy][hx] = f"{head}"
 
@@ -86,6 +91,8 @@ def cycle():
     finally:
         xhist.append(hx)
         yhist.append(hy)
+        os.system("clear")
+        runs = runs + 1
 
     
     spawn_head()
