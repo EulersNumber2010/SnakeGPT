@@ -1,6 +1,10 @@
 from rich import print
 import os
 head = "O"
+upsymb = "█"
+downsymb = "█"
+lefttsymb = "█"
+rightsymb = "█"
 
 board = [
     list("╭────────────────────╮"),
@@ -30,10 +34,8 @@ board = [
 
 global xhist
 global yhist
-global runs
 xhist = []
 yhist = []
-runs = 0
 
 # x coordinates begin at 1 and end at 20 (0 is a wall, 21 is a wall)
 hx = 10
@@ -43,8 +45,6 @@ hy = 10
 def draw_board():
     for row in board:
         print("".join(row))
-        if runs == 0:
-            os.system("clear")
             
 def spawn_head():
     board[hy][hx] = f"{head}"
@@ -59,19 +59,19 @@ def cycle():
     try:
         if dir == "w":
             d = "w"
-            head = "⇧"
+            head = f"{upsymb}"
             hy = (hy-1)
         elif dir == "s":
             d = "s"
-            head = "⇩"
+            head = f"{downsymb}"
             hy = (hy+1)
         elif dir == "a":
             d = "a"
-            head = "⇦"
+            head = f"{lefttsymb}"
             hx = (hx-1)
         elif dir == "d":
             d = "d"
-            head = "⇨"
+            head = f"{rightsymb}"
             hx = (hx+1)
         elif dir == "":
             if d == "w":
@@ -91,10 +91,7 @@ def cycle():
     finally:
         xhist.append(hx)
         yhist.append(hy)
-        os.system("clear")
-        runs = runs + 1
 
-    
     spawn_head()
     draw_board()
 
